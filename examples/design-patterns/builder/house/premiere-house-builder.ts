@@ -2,33 +2,35 @@ import { House } from './house';
 import { HouseBuilder } from './house-builder';
 
 export class PremiereHouseBuilder implements HouseBuilder {
-    private house: House;
+    private bedroomCount: number;
+    private bathroomCount: number;
+    private squareFeet: number;
+    private hasGarage: boolean = false;
+    private hasSwimmingPool: boolean = false;
 
     constructor() {
-        const bedroomCount: number = 5;
-        const bathroomCount: number = 4;
-        const floorCount: number = 3;
-        const squareFeet: number = 3500;
-
-        this.house = new House(bedroomCount, bathroomCount, floorCount, squareFeet);
+        this.bedroomCount = 5;
+        this.bathroomCount = 4;
+        this.squareFeet = 3500;
     }
 
-    public addGarage(): HouseBuilder {
-        this.house.hasGarage = true;
+    public withGarage(): HouseBuilder {
+        this.hasGarage = true;
         return this;
     }
 
-    public addSwimmingPool(): HouseBuilder {
-        this.house.hasSwimmingPool = true;
-        return this;
-    }
-
-    public configureHeatSource(): HouseBuilder {
-        this.house.heating = 'gas';
+    public withSwimmingPool(): HouseBuilder {
+        this.hasSwimmingPool = true;
         return this;
     }
 
     public build(): House {
-        return this.house;
+        return new House(
+            this.bedroomCount,
+            this.bathroomCount,
+            this.squareFeet,
+            this.hasGarage,
+            this.hasSwimmingPool
+        );
     }
 }

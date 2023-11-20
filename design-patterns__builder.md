@@ -21,161 +21,144 @@ Consider the House class below:
 export class House {
     public bedroomCount: number;
     public bathroomCount: number;
-    public floorCount: number;
     public squareFeet: number;
 
     public hasGarage: boolean;
     public hasSwimmingPool: boolean;
-    public heating: 'electric' | 'gas' | 'oil' | 'none' = 'none';
 
     constructor(
         bedroomCount: number,
         bathroomCount: number,
-        floorCount: number,
         squareFeet: number,
         hasGarage: boolean = false,
-        hasSwimmingPool: boolean = false,
-        heating: 'electric' | 'gas' | 'oil' | 'none' = 'none'
+        hasSwimmingPool: boolean = false
     ) {
         this.bedroomCount = bedroomCount;
         this.bathroomCount = bathroomCount;
-        this.floorCount = floorCount;
+        this.squareFeet = squareFeet;
+
         this.hasGarage = hasGarage;
         this.hasSwimmingPool = hasSwimmingPool;
-        this.squareFeet = squareFeet;
-        this.heating = heating;
     }
 }
 ```
 
-Despite being a fairly simple example, several arguments are necessary to construct a house object. The complexity is compounded further since typescript doesn't natively support named arguments. Despite `hasGarage` and `hasSwimmingPool` having default values, they are required if `heating` is included.
+Despite being a fairly simple class, several arguments are necessary to construct a house object. The complexity is compounded further since constructor arguments are positional in TypeScript.
 
 ```typescript
-const house = new House(3, 2, 1, 1500, false, false, 'gas');
+const house = new House(3, 2, 1500, false, true);
 ```
 
-There are a number of ways to address this problem, some of which will be touched on later in this article. In the meantime, this article will focus on how the builder pattern might be useful in this scenario.
+Note that the value `false` is provided for `hasGarage` despite it being the same as the default value. This is necessary to be able to provide a value for `hasSwimmingPool`.
 
-## Characteristics
+There are a number of ways to address this problem, some of which will be touched on later in this article. In the meantime, this article will focus on how the builder pattern can be useful in this scenario.
 
-Let's review some of the characteristics that make up the builder pattern.
+## Key Characteristics
 
--   **Product** - the object that is being built
--   **Builder** - responsible for the construction of the object
--   **Concrete Builder** - implements the Builder interface and provides an interface for getting the product
--   **Director** - responsible for the order of the steps
+### Product
 
-Lorem ipsum...
+The object that is being _built_.
 
--   **Fluent Syntax** - a way of chaining methods to make the code more readable
--   **Idempotency** - builder methods should be idempotent
+### Builder
 
-## Implementation
+The class or interface that is responsible for the construction of the product. At a minimum, it should do two things:
 
-Lorem ipsum...
+1. Expose methods for setting the values that are optional in the product's constructor.
+2. Expose a method for returning the final product.
+
+### Concrete Builder(s)
+
+Implementations of the builder class or interface for the construction of a specific product. Put another way, a concrete builder is an opinionated implementation of the base builder class or interface.
+
+### Director
+
+The class that is responsible for the orchestration of the construction of products.
+
+## Implementations
 
 ### Simple Builder
 
-Lorem ipsum...
+Here's a simple implementation of the builder pattern for the House class:
 
 ```typescript
 export class HouseBuilder {
-    private house: House;
+    private bedroomCount: number;
+    private bathroomCount: number;
+    private squareFeet: number;
 
-    constructor() {
-        this.house = new House(0, 0, 0, 0); // Provide values to satisfy the constructor, but leverage the builder to set the values
+    private hasGarage: boolean = false;
+    private hasSwimmingPool: boolean = false;
+
+    constructor(bedroomCount: number, bathroomCount: number, squareFeet: number) {
+        this.bedroomCount = bedroomCount;
+        this.bathroomCount = bathroomCount;
+        this.squareFeet = squareFeet;
     }
 
-    public setBedroomCount(count: number): void {
-        this.house.bedroomCount = count;
+    public withGarage(hasGarage: boolean): void {
+        this.hasGarage = hasGarage;
     }
 
-    public setBathroomCount(count: number): void {
-        this.house.bathroomCount = count;
-    }
-
-    public setFloorCount(count: number): void {
-        this.house.floorCount = count;
-    }
-
-    public setSquareFeet(count: number): void {
-        this.house.squareFeet = count;
-    }
-
-    public setHasGarage(hasGarage: boolean): void {
-        this.house.hasGarage = hasGarage;
-    }
-
-    public setHasSwimmingPool(hasSwimmingPool: boolean): void {
-        this.house.hasSwimmingPool = hasSwimmingPool;
-    }
-
-    public setHeating(heating: 'electric' | 'gas' | 'oil' | 'none'): void {
-        this.house.heating = heating;
+    public withSwimmingPool(hasSwimmingPool: boolean): void {
+        this.hasSwimmingPool = hasSwimmingPool;
     }
 
     public build(): House {
-        return this.house;
+        return new House(
+            this.bedroomCount,
+            this.bathroomCount,
+            this.squareFeet,
+            this.hasGarage,
+            this.hasSwimmingPool
+        );
     }
 }
 ```
 
-Lorem ipsum...
+In this implementation, the constructor accepts the required arguments for the product, exposes methods for settings the optional values, and exposes a method for returning the final product.
+
+> [!IMPORTANT]  
+> Does this work? If it does, add details about private house vs private props.
 
 ```typescript
-import { HouseBuilder } from './house-builder';
-
-const builder = new HouseBuilder();
-builder.setBedroomCount(3);
-builder.setBathroomCount(2);
-builder.setFloorCount(1);
-builder.setSquareFeet(1500);
-builder.setHasGarage(true);
+const builder = new HouseBuilder(3, 2, 1500);
+builder.withSwimmingPool(true);
 
 const house = builder.build();
 ```
 
+Note that the same house object is being created as in the previous example, however, the optional arguments are now set via methods on the builder class, eliminating the need provide values when the defaults are desired.
+
 ### Applying the Fluent Syntax (Method Chaining)
 
-Lorem ipsum...
+A common improvement applied to the builder pattern is enabling method chaining, also known as fluent syntax. This is accomplished by returning `this` in the methods that should be chainable. (`build()` still returns the final product).
 
 ```typescript
-// Fluent Builder
-
 export class HouseBuilder {
-    private house: House;
+    ...
 
-    constructor() {
-        this.house = new House(0, 0, 0, 0);
+    public withGarage(hasGarage: boolean): HouseBuilder {
+        this.hasGarage = hasGarage;
+        return this;
     }
 
-    public setBedroomCount(count: number): HouseBuilder {
-        this.house.bedroomCount = count;
-        return this; // Return the builder to allow for method chaining (fluent syntax).
+    public withSwimmingPool(hasSwimmingPool: boolean): HouseBuilder {
+        this.hasSwimmingPool = hasSwimmingPool;
+        return this;
     }
 
     ...
-
-    // Other builder methods. All methods should return the builder instance to allow for method chaining (fluent syntax)
-
-    public build(): House {
-        return this.house;
-    }
 }
 ```
 
 ```typescript
-const builder = new HouseBuilder();
-const house = builder
-    .setBedroomCount(3)
-    .setBathroomCount(2)
-    .setFloorCount(1)
-    .setSquareFeet(1500)
-    .setHasGarage(true)
-    .build();
+const builder = new HouseBuilder(3, 2, 1500);
+const house = builder.withSwimmingPool(true).build();
 ```
 
 ### Adding Concrete Builders
+
+Lorem ipsum...
 
 #### Create a HouseBuilder Interface
 
@@ -244,9 +227,9 @@ export class HouseConstructionDirector {
 }
 ```
 
-## Notes
-
--   The builder pattern is not simply a complex named argument solution
--   The builder pattern is not simply a way to identify the parameters of a constructor
--   The builder pattern _does_ prevent the telescoping constructor anti-pattern
+## TODO
+- [] The builder pattern is not simply a complex named argument solution
+- [] The builder pattern is not simply a way to identify the parameters of a constructor
+- [] The builder pattern _does_ prevent the telescoping constructor anti-pattern
+- [] Immutability
 ````

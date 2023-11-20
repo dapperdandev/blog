@@ -2,33 +2,35 @@ import { House } from './house';
 import { HouseBuilder } from './house-builder';
 
 export class ClassicHouseBuilder implements HouseBuilder {
-    private house: House;
+    private bedroomCount: number;
+    private bathroomCount: number;
+    private squareFeet: number;
+    private hasGarage: boolean = false;
+    private hasSwimmingPool: boolean = false;
 
     constructor() {
-        const bedroomCount: number = 3;
-        const bathroomCount: number = 2;
-        const floorCount: number = 2;
-        const squareFeet: number = 1900;
-
-        this.house = new House(bedroomCount, bathroomCount, floorCount, squareFeet);
+        this.bedroomCount = 3;
+        this.bathroomCount = 2;
+        this.squareFeet = 1900;
     }
 
-    public addGarage(): HouseBuilder {
-        this.house.hasGarage = true;
+    public withGarage(): HouseBuilder {
+        this.hasGarage = true;
         return this;
     }
 
-    public addSwimmingPool(): HouseBuilder {
-        this.house.hasSwimmingPool = false;
-        return this;
-    }
-
-    public configureHeatSource(): HouseBuilder {
-        this.house.heating = 'electric';
+    public withSwimmingPool(): HouseBuilder {
+        this.hasSwimmingPool = false;
         return this;
     }
 
     public build(): House {
-        return this.house;
+        return new House(
+            this.bedroomCount,
+            this.bathroomCount,
+            this.squareFeet,
+            this.hasGarage,
+            this.hasSwimmingPool
+        );
     }
 }

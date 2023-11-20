@@ -1,8 +1,7 @@
 import { House } from './house';
 
 export interface HouseBuilder {
-    addGarage(): HouseBuilder;
-    addSwimmingPool(): HouseBuilder;
-    configureHeatSource(): HouseBuilder;
+    withGarage(): HouseBuilder;
+    withSwimmingPool(): HouseBuilder;
     build(): House;
 }

@@ -9,6 +9,6 @@ export class HouseConstructionDirector {
     }
 
     constructHouse(): House {
-        return this.houseBuilder.addGarage().addSwimmingPool().configureHeatSource().build();
+        return this.houseBuilder.withGarage().withSwimmingPool().build();
     }
 }
