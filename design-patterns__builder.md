@@ -1,6 +1,6 @@
 ---
-title: Builder
-subtitle: Creational Design Patterns
+title: The Builder Pattern
+subtitle: Design Patterns
 slug: builder
 seriesSlug: design-patterns
 enableToc: true
@@ -11,14 +11,13 @@ saveAsDraft: true
 
 ## Introduction
 
-A creational pattern that allows the creation of complex objects step by step. It is used to create objects with a lot of parameters and/or with optional parameters.
+The builder pattern is a creational pattern used for the creation of complex objects. Rather than creating an object all at once via a constructor, a builder class is used with methods that build the object one step at a time until a special method is invoked that returns the final object.
 
 ## Problem Statement
 
-TODO
+Consider the House class below:
 
 ```typescript
-// No builder
 export class House {
     public bedroomCount: number;
     public bathroomCount: number;
@@ -47,21 +46,29 @@ export class House {
         this.heating = heating;
     }
 }
-
-const house = new House(3, 2, 1, 1500, true, false, 'gas');
-// Providing arguments to the House constructor is complex and hard to read/understand.
-// Note: Could realistically be solved with named arguments via an object.
 ```
 
-## Key Terms & Concepts
+Despite being a fairly simple example, several arguments are necessary to construct a house object. The complexity is compounded further since typescript doesn't natively support named arguments. Despite `hasGarage` and `hasSwimmingPool` having default values, they are required if `heating` is included.
 
--   Product - the object that is being built
--   Builder - responsible for the construction of the object
--   Concrete Builder - implements the Builder interface and provides an interface for getting the product
--   Director - responsible for the order of the steps
--   Fluent Syntax - a way of chaining methods to make the code more readable
+```typescript
+const house = new House(3, 2, 1, 1500, false, false, 'gas');
+```
 
--   Idempotency - builder methods should be idempotent
+There are a number of ways to address this problem, some of which will be touched on later in this article. In the meantime, this article will focus on how the builder pattern might be useful in this scenario.
+
+## Characteristics
+
+Let's review some of the characteristics that make up the builder pattern.
+
+-   **Product** - the object that is being built
+-   **Builder** - responsible for the construction of the object
+-   **Concrete Builder** - implements the Builder interface and provides an interface for getting the product
+-   **Director** - responsible for the order of the steps
+
+Lorem ipsum...
+
+-   **Fluent Syntax** - a way of chaining methods to make the code more readable
+-   **Idempotency** - builder methods should be idempotent
 
 ## Implementation
 
