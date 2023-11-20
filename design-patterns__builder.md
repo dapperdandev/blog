@@ -2,14 +2,12 @@
 title: Builder
 subtitle: Creational Design Patterns
 slug: builder
+seriesSlug: design-patterns
+enableToc: true
 tags: typescript, design-patterns, builder
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1649662225945/7f_c6UxhR.jpg?auto=compress
-domain: dapperdandev.hashnode.dev
+domain: dapperdan.dev
 saveAsDraft: true
 ---
-
-# Hi
-# Builder
 
 ## Introduction
 
@@ -245,4 +243,3 @@ export class HouseConstructionDirector {
 -   The builder pattern is not simply a way to identify the parameters of a constructor
 -   The builder pattern _does_ prevent the telescoping constructor anti-pattern
 ````
-
