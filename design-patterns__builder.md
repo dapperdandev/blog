@@ -5,7 +5,7 @@ slug: builder
 seriesSlug: design-patterns
 enableToc: true
 tags: typescript, design-patterns, builder
-domain: dapperdan.dev
+domain: dapperdandev.hashnode.dev
 saveAsDraft: true
 ---
 
