@@ -1,7 +1,7 @@
 import { House } from './house';
 import { HouseBuilder } from './house-builder';
 
-export class ClassicHouseBuilder implements HouseBuilder {
+export class LargeHouseBuilder implements HouseBuilder {
     private bedroomCount: number;
     private bathroomCount: number;
     private squareFeet: number;
@@ -9,9 +9,9 @@ export class ClassicHouseBuilder implements HouseBuilder {
     private hasSwimmingPool: boolean = false;
 
     constructor() {
-        this.bedroomCount = 3;
-        this.bathroomCount = 2;
-        this.squareFeet = 1900;
+        this.bedroomCount = 5;
+        this.bathroomCount = 4;
+        this.squareFeet = 3500;
     }
 
     public withGarage(): HouseBuilder {
@@ -20,7 +20,7 @@ export class ClassicHouseBuilder implements HouseBuilder {
     }
 
     public withSwimmingPool(): HouseBuilder {
-        this.hasSwimmingPool = false;
+        this.hasSwimmingPool = true;
         return this;
     }
 

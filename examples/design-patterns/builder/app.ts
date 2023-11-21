@@ -1,17 +1,13 @@
-import {
-    ClassicHouseBuilder,
-    House,
-    HouseConstructionDirector,
-    PremiereHouseBuilder
-} from './house';
+import { StandardHouseBuilder, House, HouseDirector, LargeHouseBuilder } from './house';
 
-const premiereHouseDirector = new HouseConstructionDirector(new PremiereHouseBuilder());
-const classicHouseDirector = new HouseConstructionDirector(new ClassicHouseBuilder());
+const standardHouseDirector = new HouseDirector(new StandardHouseBuilder());
+const largeHouseDirector = new HouseDirector(new LargeHouseBuilder());
 
 const community: House[] = [
-    premiereHouseDirector.constructHouse(),
-    classicHouseDirector.constructHouse(),
-    classicHouseDirector.constructHouse()
+    standardHouseDirector.buildBasicHouse(),
+    standardHouseDirector.buildLuxuryHouse(),
+    largeHouseDirector.buildBasicHouse(),
+    largeHouseDirector.buildLuxuryHouse()
 ];
 
 console.log(community);

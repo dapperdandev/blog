@@ -70,11 +70,13 @@ The class or interface that is responsible for the construction of the product. 
 
 Implementations of the builder class or interface for the construction of a specific product. Put another way, a concrete builder is an opinionated implementation of the base builder class or interface.
 
+> ℹ️ I acknowledge the opportunity for confusion with the word "concrete" here with the physical material concrete (also used to build houses). In this context, "concrete" is describing a builder implementation.
+
 ### Director
 
 The class that is responsible for the orchestration of the construction of products.
 
-## Implementations
+## Implementation
 
 ### Simple Builder
 
@@ -89,20 +91,24 @@ export class HouseBuilder {
     private hasGarage: boolean = false;
     private hasSwimmingPool: boolean = false;
 
+    // The constructor accepts the required arguments for the product
     constructor(bedroomCount: number, bathroomCount: number, squareFeet: number) {
         this.bedroomCount = bedroomCount;
         this.bathroomCount = bathroomCount;
         this.squareFeet = squareFeet;
     }
 
+    // Method for setting hasGarage if the default value is not desired
     public withGarage(hasGarage: boolean): void {
         this.hasGarage = hasGarage;
     }
 
+    // Method for setting hasSwimmingPool if the default value is not desired
     public withSwimmingPool(hasSwimmingPool: boolean): void {
         this.hasSwimmingPool = hasSwimmingPool;
     }
 
+    // Method for returning the final product
     public build(): House {
         return new House(
             this.bedroomCount,
@@ -115,9 +121,7 @@ export class HouseBuilder {
 }
 ```
 
-In this implementation, the constructor accepts the required arguments for the product, exposes methods for settings the optional values, and exposes a method for returning the final product.
-
-> ℹ️ Does this work? If it does, add details about private house vs private props.
+Using this implementation, a house object can be created like so:
 
 ```typescript
 const builder = new HouseBuilder(3, 2, 1500);
@@ -128,13 +132,13 @@ const house = builder.build();
 
 Note that the same house object is being created as in the previous example, however, the optional arguments are now set via methods on the builder class, eliminating the need provide values when the defaults are desired.
 
-### Applying the Fluent Syntax (Method Chaining)
+### Adding Fluent Syntax (Method Chaining)
 
 A common improvement applied to the builder pattern is enabling method chaining, also known as fluent syntax. This is accomplished by returning `this` in the methods that should be chainable. (`build()` still returns the final product).
 
 ```typescript
 export class HouseBuilder {
-    ...
+    // Properties and constructor...
 
     public withGarage(hasGarage: boolean): HouseBuilder {
         this.hasGarage = hasGarage;
@@ -146,9 +150,11 @@ export class HouseBuilder {
         return this;
     }
 
-    ...
+    public build(): House { ... }
 }
 ```
+
+Now `.build()` can be called immediately after a chainable method. In this case, `withSwimmingPool()`:
 
 ```typescript
 const builder = new HouseBuilder(3, 2, 1500);
@@ -157,78 +163,128 @@ const house = builder.withSwimmingPool(true).build();
 
 ### Adding Concrete Builders
 
-Lorem ipsum...
+The above implementation is a good start, but it's not adding much value. The builder pattern really shines with concrete builders. To recap, a concrete builder is just a builder with some of the details filled in for a specific variation of the product.
 
-#### Create a HouseBuilder Interface
+At this point, it's important to create an interface for all of the concrete builders to implement. This will ensure that all concrete builders work the same way and produce a variation of the same product. Make sure to remove the `HouseBuilder` class from the previous example to avoid conflicts.
 
 ```typescript
 export interface HouseBuilder {
-    addGarage(): HouseBuilder;
-    addSwimmingPool(): HouseBuilder;
-    configureHeatSource(): HouseBuilder;
+    withGarage(): HouseBuilder;
+    withSwimmingPool(): HouseBuilder;
     build(): House;
 }
 ```
 
-#### Create Concrete Builders
+Two concrete builder classes implementing `HouseBuilder` are being created below: `StandardHouseBuilder` and `LargeHouseBuilder`.
 
-Lorem ipsum...
+-   A standard house will always have 3 bedrooms, 2 bathrooms, and 1500 square feet.
+-   A large house will always have 5 bedrooms, 4 bathrooms, and 3500 square feet.
+
+Just as before, neither will have a garage or swimming pool by default, however, the `withGarage()` and `withSwimmingPool()` methods will add those options without requiring any arguments.
 
 ```typescript
-export class ClassicHouseBuilder implements HouseBuilder {
-    private house: House;
+export class StandardHouseBuilder implements HouseBuilder {
+    // Properties...
 
     constructor() {
-        // Prepare default values for the required House constructor arguments.
-        const bedroomCount: number = 3;
-        const bathroomCount: number = 2;
-        const floorCount: number = 2;
-        const squareFeet: number = 1900;
-
-        this.house = new House(bedroomCount, bathroomCount, floorCount, squareFeet);
+        this.bedroomCount = 3;
+        this.bathroomCount = 2;
+        this.squareFeet = 1500;
     }
 
-    public addGarage(): HouseBuilder {
-        // The concrete builder is preconfigured with default values for the product.
-        this.house.hasGarage = true;
+    public withGarage(): HouseBuilder {
+        this.hasGarage = true;
         return this;
     }
 
-    public addSwimmingPool(): HouseBuilder {
-        this.house.hasSwimmingPool = false;
+    public withSwimmingPool(): HouseBuilder {
+        this.hasSwimmingPool = true;
         return this;
     }
 
-    public configureHeatSource(): HouseBuilder {
-        this.house.heating = 'electric';
-        return this;
-    }
-
-    public build(): House {
-        return this.house;
-    }
+    public build(): House { ... }
 }
+
+export class LargeHouseBuilder implements HouseBuilder {
+    // Properties...
+
+    constructor() {
+        this.bedroomCount = 5;
+        this.bathroomCount = 4;
+        this.squareFeet = 3500;
+    }
+
+    public withGarage(): HouseBuilder {
+        this.hasGarage = true;
+        return this;
+    }
+
+    public withSwimmingPool(): HouseBuilder {
+        this.hasSwimmingPool = true;
+        return this;
+    }
+
+    public build(): House { ... }
+}
+```
+
+Now the concrete buliders can create a house object without any constructor or method arguments:
+
+```typescript
+const standardHouse = new StandardHouseBuilder().withSwimmingPool().build();
+const largeHouse = new LargeHouseBuilder().withGarage().build();
 ```
 
 ### Adding a Director
 
-````typescript
-export class HouseConstructionDirector {
+The final piece is the director class. This special class further abstracts the creation of product variations.
+
+In the concrete builders above, default values are being set that are specific to the type of house being built. These include the number of bedrooms, bathrooms, and square feet. Note that the type of house is not dictating whether or not it includes a garage or a swimming pool. Think of them as floor plans.
+
+The director class below takes things a step further by providing methods for building houses with or without garages and/or swimming pools. For simplicity, two variations are being considered: **basic** and **luxury**.
+
+-   A basic house has no upgrades, i.e., no garage or swimming pool.
+-   A luxury house has both a swimming pool and a garage.
+
+```typescript
+export class HouseDirector {
     private houseBuilder: HouseBuilder;
 
     constructor(houseBuilder: HouseBuilder) {
         this.houseBuilder = houseBuilder;
     }
 
-    constructHouse(): House {
-        return this.houseBuilder.addGarage().addSwimmingPool().configureHeatSource().build();
+    public buildBasicHouse(): House {
+        return this.houseBuilder.build();
+    }
+
+    public buildLuxuryHouse(): House {
+        return this.houseBuilder.withGarage().withSwimmingPool().build();
     }
 }
 ```
 
+With the director class in place, variations of the the house product can be created without having to dig into the details of the house class's constructor:
+
+```typescript
+const standardHouseDirector = new HouseDirector(new StandardHouseBuilder());
+const largeHouseDirector = new HouseDirector(new LargeHouseBuilder());
+
+const community: House[] = [
+    standardHouseDirector.buildBasicHouse(),
+    standardHouseDirector.buildLuxuryHouse(),
+    largeHouseDirector.buildBasicHouse(),
+    largeHouseDirector.buildLuxuryHouse()
+];
+```
+
 ## TODO
-- [] The builder pattern is not simply a complex named argument solution
-- [] The builder pattern is not simply a way to identify the parameters of a constructor
-- [] The builder pattern _does_ prevent the telescoping constructor anti-pattern
-- [] Immutability
-````
+
+-   [] The builder pattern is not simply a complex named argument solution
+-   [] The builder pattern is not simply a way to identify the parameters of a constructor
+-   [] The builder pattern _does_ prevent the telescoping constructor anti-pattern
+-   [] Immutability
+
+```
+
+```
