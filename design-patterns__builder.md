@@ -117,8 +117,7 @@ export class HouseBuilder {
 
 In this implementation, the constructor accepts the required arguments for the product, exposes methods for settings the optional values, and exposes a method for returning the final product.
 
-> [!IMPORTANT]  
-> Does this work? If it does, add details about private house vs private props.
+> ℹ️ Does this work? If it does, add details about private house vs private props.
 
 ```typescript
 const builder = new HouseBuilder(3, 2, 1500);
