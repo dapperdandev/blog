@@ -15,7 +15,7 @@ The builder pattern is a creational pattern used for the creation of complex obj
 
 ## Motivation
 
-Consider the House class below:
+Consider the `House` class below:
 
 ```typescript
 export class House {
@@ -278,13 +278,17 @@ const community: House[] = [
 ];
 ```
 
+## Considerations
+
+Lorem ipsum...
+
+[] TODO: Optional Arguments (name?)
+
+## Conclusion
+
+Lorem ipsum...
+
 ## TODO
 
--   [] The builder pattern is not simply a complex named argument solution
--   [] The builder pattern is not simply a way to identify the parameters of a constructor
--   [] The builder pattern _does_ prevent the telescoping constructor anti-pattern
--   [] Immutability
-
-```
-
-```
+DELETE ME
+[] Examples - ORM Query builder
