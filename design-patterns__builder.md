@@ -51,7 +51,7 @@ const house = new House(3, 2, 1500, false, true);
 
 Note that the value `false` is provided for `hasGarage` despite it being the same as the default value. This is necessary to be able to provide a value for `hasSwimmingPool`.
 
-There are a number of ways to address this problem, some of which will be touched on later in this article. In the meantime, this article will focus on how the builder pattern can be useful in this scenario.
+There are a number of ways to address this problem, some of which will be covered in another article. In the meantime, this article will focus on how the builder pattern can be useful in this scenario.
 
 ## Key Characteristics
 
@@ -80,7 +80,7 @@ The class that is responsible for the orchestration of the construction of produ
 
 ### Simple Builder
 
-Here's a simple implementation of the builder pattern for the House class:
+Here's a simple implementation of the builder pattern for the `House` class:
 
 ```typescript
 export class HouseBuilder {
@@ -278,17 +278,35 @@ const community: House[] = [
 ];
 ```
 
+## Real-World Example
+
+Building a house for a blog post is a bit contrived. A more realistic scenario for web developers is building a SQL query for a database. In fact, many ORM libraries come with a query builder out of the box. Here's an example from [TypeORM](https://typeorm.io/select-query-builder#what-is-querybuilder):
+
+> Simple example of QueryBuilder:
+>
+> ```typescript
+> const firstUser = await dataSource
+>     .getRepository(User)
+>     .createQueryBuilder('user')
+>     .where('user.id = :id', { id: 1 })
+>     .getOne();
+> ```
+>
+> It builds the following SQL query:
+>
+> ```sql
+> SELECT
+>     user.id as userId,
+>     user.firstName as userFirstName,
+>     user.lastName as userLastName
+> FROM users user
+> WHERE user.id = 1
+> ```
+
 ## Considerations
 
-Lorem ipsum...
-
-[] TODO: Optional Arguments (name?)
+While the builder pattern is a convenient way to create complex objects, it isn't a one-size-fits all solution. The house example in this article is a great candidate for options object pattern. Similar scenarios may be better suited for the factory pattern. Ultimately, it's up to the developer to research their various solutions and choose the pattern that best fits their needs.
 
 ## Conclusion
 
-Lorem ipsum...
-
-## TODO
-
-DELETE ME
-[] Examples - ORM Query builder
+The builder pattern is fairly simple to implement at a basic level. Adding concrete builders and a director can simplify object creation even further, though often at the cost of clarity by abstracting away too many details. Regardless, the builder pattern is commonly used in various libraries and makes for a great addition to any developer's toolbox.
