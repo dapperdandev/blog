@@ -11,7 +11,7 @@ export class StandardHouseBuilder implements HouseBuilder {
     constructor() {
         this.bedroomCount = 3;
         this.bathroomCount = 2;
-        this.squareFeet = 1900;
+        this.squareFeet = 1500;
     }
 
     public withGarage(): HouseBuilder {
