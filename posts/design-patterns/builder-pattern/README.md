@@ -38,7 +38,7 @@ export class House {
 
 Despite being a fairly simple class, several arguments are necessary to construct a house object. The complexity is compounded further since constructor arguments are positional in TypeScript.
 
-![](./positional-arguments.png)
+![Alt Text](https://github.com/dapperdandev/blog/blob/main/posts/design-patterns/builder-pattern/positional-arguments.png?raw=true)
 
 Note that the value `false` is provided for `hasGarage` despite it being the same as the default value. This is necessary to be able to provide a value for `hasSwimmingPool`.
 
