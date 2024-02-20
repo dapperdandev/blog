@@ -2,6 +2,8 @@
 
 ## Structural Design Patterns
 
+Test Update
+
 ## Introduction
 
 The builder pattern is a creational pattern used for the creation of complex objects. Rather than creating an object all at once via a constructor, a builder class is used with methods that build the object one step at a time until a special method is invoked that returns the final object.
