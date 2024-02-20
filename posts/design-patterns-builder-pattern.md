@@ -1,4 +1,6 @@
-# Design Patterns: Builder Pattern
+# The Builder Pattern
+
+## Structural Design Patterns
 
 ## Introduction
 
