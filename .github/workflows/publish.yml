@@ -27,7 +27,7 @@ jobs:
             - if: steps.posts.outputs.post0
               name: Publish to medium
               # uses: infraway/post-medium-action@v1.6.0
-              uses: dapperdandev/post-medium-action/main
+              uses: dapperdandev/post-medium-action@main
               with:
                   access_token: ${{ secrets.MEDIUM_ACCESS_TOKEN }}
                   markdown_file: ${{ steps.posts.outputs.post0 }}
