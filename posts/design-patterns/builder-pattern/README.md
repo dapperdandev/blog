@@ -38,9 +38,7 @@ export class House {
 
 Despite being a fairly simple class, several arguments are necessary to construct a house object. The complexity is compounded further since constructor arguments are positional in TypeScript.
 
-```typescript
-const house = new House(3, 2, 1500, false, true);
-```
+![](./positional-arguments.png)
 
 Note that the value `false` is provided for `hasGarage` despite it being the same as the default value. This is necessary to be able to provide a value for `hasSwimmingPool`.
 

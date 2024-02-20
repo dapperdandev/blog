@@ -1,4 +1,7 @@
 {
+    "codesnap.containerPadding": "3px",
+    "codesnap.showWindowControls": false,
+    "codesnap.showLineNumbers": false,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "[typescript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
