@@ -84,7 +84,7 @@ Two concrete builder classes implementing `HouseBuilder` are being created below
 
 Just as before, neither will have a garage or swimming pool by default, however, the `withGarage()` and `withSwimmingPool()` methods will add those options without requiring any arguments.
 
-![Concrete Builder Classes](https://github.com/dapperdandev/blog/blob/main/posts/design-patterns/builder-pattern/concrete-builder-interface.png?raw=true)
+![Concrete Builder Classes](https://github.com/dapperdandev/blog/blob/main/posts/design-patterns/builder-pattern/concrete-builder-classes.png?raw=true)
 
 Now the concrete buliders can create a house object without any constructor or method arguments:
 
@@ -109,14 +109,7 @@ With the director class in place, variations of the the house product can be cre
 
 ## Real-World Example
 
-Building a house for a blog post is a bit contrived. A more realistic scenario for web developers is building a SQL query for a database. In fact, many ORM libraries come with a query builder out of the box. Here's an example from [TypeORM](https://typeorm.io/select-query-builder#what-is-querybuilder):
-
-> Simple example of QueryBuilder:
-> ![TypeORM Example](https://github.com/dapperdandev/blog/blob/main/posts/design-patterns/builder-pattern/typeorm-example.png?raw=true)
->
-> It builds the following SQL query:
->
-> ![TypeORM Result](https://github.com/dapperdandev/blog/blob/main/posts/design-patterns/builder-pattern/typeorm-result.png?raw=true)
+Building a house for a blog post is a bit contrived. A more realistic scenario for web developers is building a SQL query for a database. In fact, many ORM libraries come with a query builder out of the box. Check out this example from [TypeORM](https://typeorm.io/select-query-builder#what-is-querybuilder):
 
 ## Considerations
 
