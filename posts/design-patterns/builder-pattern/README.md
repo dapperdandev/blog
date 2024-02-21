@@ -39,7 +39,7 @@ The class or interface that is responsible for the construction of the product. 
 
 Implementations of the builder class or interface for the construction of a specific product. Put another way, a concrete builder is an opinionated implementation of the base builder class or interface.
 
-> ℹ️ I acknowledge the opportunity for confusion with the word "concrete" here with the physical material concrete (also used to build houses). In this context, "concrete" is describing a builder implementation.
+> I acknowledge the opportunity for confusion with the word "concrete" here with the physical material concrete (also used to build houses). In this context, "concrete" is describing a builder implementation.
 
 ### Director
 
