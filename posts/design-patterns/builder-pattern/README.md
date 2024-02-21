@@ -109,7 +109,7 @@ With the director class in place, variations of the the house product can be cre
 
 ## Real-World Example
 
-Building a house for a blog post is a bit contrived. A more realistic scenario for web developers is building a SQL query for a database. In fact, many ORM libraries come with a query builder out of the box. Check out this example from [TypeORM](https://typeorm.io/select-query-builder#what-is-querybuilder):
+Building a house for a blog post is a bit contrived. A more realistic scenario for web developers is building a SQL query for a database. In fact, many ORM libraries come with a query builder out of the box. Check out this example from TypeORM: https://typeorm.io/select-query-builder#what-is-querybuilder.
 
 ## Considerations
 
