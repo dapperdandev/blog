@@ -2,14 +2,23 @@
 title: 'Builder Pattern'
 description: 'Lorem ipsum dolor sit amet'
 pubDate: 'Jul 22 2022'
+draft: true
 ---
 
-# Notes
-
 ## Anatomy
-- Builder
-- Concrete Builder
-- Director
+### Builder - The interface (generic)
+### Concrete Builder - The implementation
+- private product
+- (optional) reset method
+
+### Director
+### Product
+
+## Misc
+- Fluent API
 
 ## Resources
 - [Harrison Ferrone - C# Design Patterns](https://app.pluralsight.com/library/courses/c-sharp-design-patterns-builder/table-of-contents)
+
+## Notes
+- The Director does not return the final result. The director will prepare the the result. The developer still must request the result from the concrete builder
