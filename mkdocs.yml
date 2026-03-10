@@ -1,3 +1,19 @@
 site_name: DapperDanDev
 theme:
   name: simple-blog
+  custom_dir: overrides
+  sidebar: true
+  navigation_depth: 3
+  highlightjs: false
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      noclasses: true
+      pygments_style: dracula
+  - pymdownx.superfences
+  - meta
+exclude_docs: |
+  posts/drafts/
+nav:
+  - Home: index.md
+  - About: about/index.md
