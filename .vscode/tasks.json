@@ -4,7 +4,7 @@
     {
       "label": "MkDocs Serve",
       "type": "shell",
-      "command": "mkdocs serve --livereload",
+      "command": ".venv/Scripts/mkdocs serve --livereload",
       "group": "build",
       "isBackground": true,
       "problemMatcher": []
