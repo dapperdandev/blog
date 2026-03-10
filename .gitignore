@@ -1,5 +1,6 @@
 .claude
 venv/
+.venv/
 site/
 __pycache__/
 *.pyc
