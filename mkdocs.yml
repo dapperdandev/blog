@@ -21,5 +21,9 @@ extra:
   header_nav:
     - Home
     - About
+  social:
+    - name: GitHub
+      icon: fa fa-github
+      link: https://github.com/dapperdandev
 exclude_docs: |
   posts/drafts/
