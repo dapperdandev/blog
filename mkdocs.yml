@@ -4,6 +4,7 @@ site_description: A blog dedicated to software development, design patterns, and
 theme:
   name: simple-blog
   custom_dir: overrides
+  favicon: img/favicon.ico
   sidebar: true
   navigation_depth: 3
   highlightjs: false
