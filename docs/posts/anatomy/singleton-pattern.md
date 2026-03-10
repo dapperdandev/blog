@@ -1,5 +1,5 @@
 ---
-title: Design Pattern Anatomy - Singleton Pattern
+title: Singleton Pattern
 description: An overview of the Singleton design pattern
 date: 2026-03-07
 tags:

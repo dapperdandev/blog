@@ -1,0 +1,31 @@
+<!-- block sidebar -->
+<div class="navbar-expand-md" role="complementary">
+    {% macro nav_item(item) %}
+        {%- if item.children %}
+            <li class="nav-item">
+                <span class="nav-link fw-bold">{{ item.title }}</span>
+                <ul class="nav flex-column ms-3">
+                    {%- for child in item.children %}
+                        {{ nav_item(child) }}
+                    {%- endfor %}
+                </ul>
+            </li>
+        {%- else %}
+            <li class="nav-item">
+                <a href="{{ item.url|url }}" class="nav-link{% if item.active %} active{% endif %}">{{ item.title }}</a>
+            </li>
+        {%- endif %}
+    {%- endmacro %}
+    <div class="sidebar navbar-collapse collapse card">
+        <ul class="nav flex-column">
+        {%- for item in nav %}
+            {%- if item.title == "Posts" and item.children %}
+                {%- for child in item.children %}
+                    {{ nav_item(child) }}
+                {%- endfor %}
+            {%- endif %}
+        {%- endfor %}
+        </ul>
+    </div>
+</div>
+<!-- endblock -->

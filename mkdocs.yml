@@ -1,4 +1,6 @@
 site_name: DapperDanDev
+site_url: https://dapperdan.dev
+site_description: A blog dedicated to software development, design patterns, and best practices.
 theme:
   name: simple-blog
   custom_dir: overrides
@@ -12,8 +14,12 @@ markdown_extensions:
       pygments_style: dracula
   - pymdownx.superfences
   - meta
+plugins:
+  - search
+  - awesome-pages
+extra:
+  header_nav:
+    - Home
+    - About
 exclude_docs: |
   posts/drafts/
-nav:
-  - Home: index.md
-  - About: about/index.md
