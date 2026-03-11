@@ -5,9 +5,12 @@
       "label": "MkDocs Serve",
       "type": "shell",
       "command": ".venv/Scripts/mkdocs serve --livereload",
-      "group": "build",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
       "isBackground": true,
-      "problemMatcher": []
+      "problemMatcher": [],
     }
   ]
 }
