@@ -8,6 +8,34 @@ tags:
   - webdev
 ---
 
+## Talking Points
+
+### Chapter 1 - Sinking
+- Initial Pitch / Example Component
+- Pivot to build App Beta
+  - Feature Parity Hell
+- Hiatus (left for tackle)
+- Return
+- Architect Blunder (hire of Matt and regret)
+
+### Chapter 2 - Floating
+- Sunset of AppBeta / Revelation
+- The journey
+  - Auth0 upgrade
+  - Standalone Configuration early on
+  - Dual bootstrapping
+  - Routing Strategy
+  - Simple services
+
+### Chapter 3 - Swimming
+- Component-by-component / page-by-page
+- Introducing Agentic coding
+- Pumping the brakes when release broke
+- Removing the router
+- Removing webpack
+
+---
+
 ## The Challenge
 
 Migrating a large AngularJS application to modern Angular isn't a rewrite — it's a years-long

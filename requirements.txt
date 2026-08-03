@@ -1,4 +1,5 @@
 mkdocs>=1.6.1
 mkdocs-simple-blog
 pymdown-extensions
+pygments>=2.19.1
 mkdocs-awesome-pages-plugin
