@@ -5,7 +5,7 @@ date: 2026-03-07
 tags:
   - design-patterns
   - typescript
-  - architecture
+  - creational
 ---
 
 ## Introduction
@@ -25,7 +25,7 @@ class Counter {
   private _count: number;
 
   private constructor() {
-    this._count = 0; // Initialize the count to 0 to prevent errors when incrementing
+    this._count = 0; // Establish the starting state for the single instance
   }
 
   public static getInstance(): Counter {
@@ -61,7 +61,7 @@ A private constructor to prevent direct instantiation of the class from outside.
 
 ```typescript
 private constructor() {
-    this._count = 0; // Initialize the count to 0 to prevent errors when incrementing
+    this._count = 0; // Establish the starting state for the single instance
 }
 ```
 

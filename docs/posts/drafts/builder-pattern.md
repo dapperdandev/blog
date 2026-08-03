@@ -1,34 +1,27 @@
 ---
 title: Builder Pattern
 description: An overview of the Builder design pattern
+date: 2026-07-30
 tags:
   - design-patterns
-  - architecture
+  - typescript
+  - creational
 ---
 
-## Anatomy
+## Introduction
 
-### Builder - The interface (generic)
+## Example
 
-### Concrete Builder - The implementation
+## Dissection
 
-- private product sdfhdl
-- (optional) reset method
+### Builder
+
+### Concrete Builder
 
 ### Director
 
 ### Product
 
-## Misc
+### Fluent API
 
-- Fluent API
-
-## Resources
-
-- [Harrison Ferrone - C# Design Patterns](https://app.pluralsight.com/library/courses/c-sharp-design-patterns-builder/table-of-contents)
-
-## Notes
-
-- The Director does not return the final result. The director will prepare the
-  the result. The developer still must request the result from the concrete
-  builder
+## Usage
