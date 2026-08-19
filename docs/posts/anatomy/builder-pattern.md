@@ -65,9 +65,9 @@ class DeliSandwichBuilder implements SandwichBuilder {
     }
 
     build(): Sandwich {
-        const builtSandwich = this.sandwich;
-        this.reset(); // Reset for next build
-        return builtSandwich;
+        const sandwich = this.sandwich;
+        this.reset();
+        return sandwich;
     }
 }
 
