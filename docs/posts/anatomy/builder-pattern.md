@@ -10,13 +10,13 @@ tags:
 
 ## Introduction
 
-The Builder pattern simplifies the construction of complex objects. It often solves the telescoping constructor anti-pattern, where a class has multiple constructors with different parameters. The builder pattern allows for step-by-step construction of an object.
+The Builder pattern simplifies the construction of complex objects. It often solves the telescoping constructor anti-pattern, where a class's parameters increase in number and complexity. The builder pattern allows for step-by-step construction of an object.
 
 ## Example
 ```typescript
 // -- Product ------------------------------------------
 type Bread = 'white' | 'wheat' | 'rye';
-type Cheese = 'cheddar' | 'swiss'
+type Cheese = 'cheddar' | 'swiss';
 
 class Sandwich {
     bread: Bread = 'white';
@@ -71,7 +71,7 @@ class DeliSandwichBuilder implements SandwichBuilder {
     }
 }
 
-// -- Director  -----------------------------------------
+// -- Director -----------------------------------------
 class SandwichArtist {
     private builder: SandwichBuilder;
 
@@ -109,11 +109,10 @@ The complex object that is being built/constructed. A product can exist without 
 
 ### Builder Interface
 
-Just like any interface, the builder interface is the contract that concrete builders implement. 
+Just like any interface, the builder interface is the contract that concrete builders implement.
 
 #### Requirements
-- `reset()` method to reset the builder to a clean state.
-- `build()` method to return the product.
+- A step for each part of the product a caller may want to set.
 
 ### Concrete Builder
 
@@ -122,7 +121,8 @@ Concrete builders provide the actual implementation for building the product. Th
 #### Requirements
 - Implements the builder interface.
 - Has a private instance of the product being built.
-- Calls `reset()` from `build()` to ensure a clean state for the next build.
+- Provides the method that returns the product (`build()` here).
+- Resets the product after returning it, so that the builder can be reused.
 
 ### Director (optional)
 
@@ -133,17 +133,30 @@ The director abstracts away the construction process. It knows the order to call
 - Each method calls `reset()` before building a new product. This ensures a clean state.
 - Each method calls the builder methods in a specific order to construct a particular product.
 
-
 ### Fluent API
 
-The fluent API is its own design pattern that the builder pattern often uses. It allows for method chaining by returning the builder instance (`this`) from each method, which makes the code more readable and expressive.
+Optional. Allows for method chaining by returning the builder instance (`this`) from each method, which makes the code more readable and expressive.
 
 ## Usage
 
+The client can drive the builder itself for a one-off order:
+
 ```typescript
 const deliSandwichBuilder = new DeliSandwichBuilder();
+
+const pastramiOnRye = deliSandwichBuilder
+    .setBread('rye')
+    .addTopping('pastrami')
+    .build();
+```
+
+Or hand it to a director and order off the menu:
+
+```typescript
 const sandwichArtist = new SandwichArtist(deliSandwichBuilder);
 
 const grilledCheese = sandwichArtist.makeGrilledCheese();
 const clubSandwich = sandwichArtist.makeClubSandwich();
 ```
+
+The same builder serves both, because `build()` resets it.
